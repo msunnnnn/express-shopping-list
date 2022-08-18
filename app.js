@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 const { items } = require("./fakeDB.js");
 
 app.get("/items", function (req, res) {
-  return res.send({ items: items });
+  return res.send({ items });
 });
 
 app.post("/items", function (req, res) {
@@ -25,6 +25,7 @@ app.post("/items", function (req, res) {
 
 app.get("/items/:name", function (req, res) {
   const currItemName = req.params.name;
+  // use find
   for (let item of items) {
     if (item.name === currItemName) {
       return res.json(item);
@@ -46,9 +47,10 @@ app.patch("/items/:name", function (req, res) {
   }
   throw new Error("no item with that name");
 });
-
+// TODO:add docstrings
 app.delete("/items/:name", function (req, res) {
   const currItemName = req.params.name;
+  // use findIndex
   for (let i = 0; i < items.length; i++) {
     if (items[i].name === currItemName) {
       items.splice(i, 1);
